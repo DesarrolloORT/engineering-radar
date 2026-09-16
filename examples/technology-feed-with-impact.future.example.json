@@ -1,0 +1,33 @@
+{
+  "id": "sig-f5c1d7a",
+  "type": "technology",
+  "category": "development",
+  "title": "Cambio relevante en una tecnología del stack",
+  "summary": "La fuente anuncia un cambio que puede requerir revisión en aplicaciones que utilicen determinadas versiones.",
+  "why_it_matters": "El equipo utiliza esta tecnología; todavía no se verificó impacto contra repositorios internos.",
+  "priority": 0.86,
+  "confidence": 0.91,
+  "sources_count": 4,
+  "source_urls": [
+    "https://example.org/source-1",
+    "https://example.org/source-2"
+  ],
+  "first_seen": "2026-09-16T11:20:00Z",
+  "published_at": "2026-09-16T11:35:00Z",
+  "expires_at": "2026-09-18T11:35:00Z",
+  "impact": {
+    "status": "potential",
+    "repositories": [
+      {
+        "name": "admisiones-front",
+        "reason": "Uses affected framework/version",
+        "evidence": "package-lock.json"
+      },
+      {
+        "name": "funcionarios-front",
+        "reason": "Uses affected framework/version",
+        "evidence": "package-lock.json"
+      }
+    ]
+  }
+}

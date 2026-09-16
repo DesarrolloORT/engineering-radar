@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dsi.local/contracts/error-feed.schema.json",
+  "title": "ErrorFeedItemFuture",
+  "description": "Contrato previsto para la fase posterior a QlikSense. No requerido por el MVP.",
+  "type": "object",
+  "required": [
+    "id",
+    "service",
+    "environment",
+    "signature",
+    "severity",
+    "first_seen",
+    "last_seen",
+    "count_15m",
+    "count_1h"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "service": {
+      "type": "string"
+    },
+    "environment": {
+      "type": "string"
+    },
+    "signature": {
+      "type": "string"
+    },
+    "severity": {
+      "type": "string",
+      "enum": [
+        "warning",
+        "error",
+        "critical"
+      ]
+    },
+    "first_seen": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "last_seen": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "count_15m": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "count_1h": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "is_new": {
+      "type": "boolean"
+    },
+    "is_spike": {
+      "type": "boolean"
+    },
+    "sample_message": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "additionalProperties": false
+}
