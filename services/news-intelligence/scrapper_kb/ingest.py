@@ -1,11 +1,7 @@
 """Stage 1 — deterministic ingest.
 
-Turns configured sources into Document[]. No LLM involved. The MVP ships a
-single "static" source adapter (reads a local JSON fixture) so the pipeline
-is runnable end-to-end before real RSS/web/security-advisory adapters are
-wired up (see docs/02-news-radar.md, "fuentes reales configuradas" is still
-pending in MVP-CHECKLIST.md). Adding a new source type means adding one
-function here and one entry in config.yaml — no pipeline changes required.
+Turns configured static fixtures and RSS/Atom feeds into Document[].
+No LLM involved. Adding a source requires only a config.yaml entry.
 """
 
 from __future__ import annotations
@@ -16,6 +12,7 @@ from pathlib import Path
 from typing import Callable
 
 from .models import Document
+from .rss import load_rss
 
 SourceLoader = Callable[[dict], list[Document]]
 
@@ -40,6 +37,7 @@ def _load_static(source: dict) -> list[Document]:
 
 _LOADERS: dict[str, SourceLoader] = {
     "static": _load_static,
+    "rss": load_rss,
 }
 
 

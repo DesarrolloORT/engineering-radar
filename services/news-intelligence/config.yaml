@@ -28,7 +28,21 @@ categories:
   - dev-tooling
   - other
 
-sources: []
+sources:
+  - type: rss
+    category: development
+    params:
+      url: https://devblogs.microsoft.com/dotnet/feed/
+      max_age_hours: 168
+      max_items: 20
+      timeout_seconds: 10
+  - type: rss
+    category: cloud
+    params:
+      url: https://devblogs.microsoft.com/azure-sdk/feed/
+      max_age_hours: 168
+      max_items: 20
+      timeout_seconds: 10
 # Example static source for local runs/demos:
 # sources:
 #   - type: static
