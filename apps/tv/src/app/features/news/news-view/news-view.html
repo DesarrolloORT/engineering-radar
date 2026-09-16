@@ -1,0 +1,14 @@
+<main class="news-view">
+  @if (currentSlide(); as slide) {
+    @switch (slide.kind) {
+      @case ('news') {
+        <app-news-card [item]="slide.item" />
+      }
+      @default {
+        <div class="news-view__empty">
+          <p>{{ isUnreachable() ? 'Vista de noticias no disponible' : 'Sin novedades relevantes' }}</p>
+        </div>
+      }
+    }
+  }
+</main>

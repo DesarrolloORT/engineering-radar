@@ -14,9 +14,7 @@ services/radar-api/**/*.db-shm
 services/radar-api/**/*.db-wal
 services/radar-api/**/TestResults/
 
-# Angular / Node
-apps/tv/node_modules/
-apps/tv/dist/
+# Angular / Node (apps/tv has its own .gitignore for build output, caches, etc.)
 
 # Editors/OS
 .vs/

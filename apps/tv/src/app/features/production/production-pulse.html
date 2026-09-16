@@ -1,0 +1,15 @@
+<section class="production-pulse">
+  @if (qlikUrl) {
+    <iframe
+      class="production-pulse__frame"
+      [src]="qlikUrl"
+      title="Production Pulse TV"
+      referrerpolicy="no-referrer"
+    ></iframe>
+  } @else {
+    <div class="production-pulse__fallback">
+      <span class="production-pulse__label">Production Pulse</span>
+      <p>Production view unavailable</p>
+    </div>
+  }
+</section>

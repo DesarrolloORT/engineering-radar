@@ -1,0 +1,21 @@
+<main class="tv-shell">
+  @if (isStale()) {
+    <span class="tv-shell__badge">Datos no actualizados</span>
+  }
+
+  @if (currentSlide(); as slide) {
+    @switch (slide.kind) {
+      @case ('news') {
+        <app-news-card [item]="slide.item" />
+      }
+      @case ('production') {
+        <app-production-pulse />
+      }
+      @default {
+        <div class="tv-shell__empty">
+          <p>{{ isUnreachable() ? 'Vista de noticias no disponible' : 'Sin novedades relevantes' }}</p>
+        </div>
+      }
+    }
+  }
+</main>

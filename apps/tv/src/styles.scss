@@ -1,0 +1,20 @@
+:root {
+  --tv-bg: #0b0e14;
+  --tv-fg: #f2f4f8;
+  --tv-muted: #8892a4;
+  --tv-accent: #4da3ff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden; // kiosk display — no scrolling, no interaction required
+  background: var(--tv-bg);
+  color: var(--tv-fg);
+  font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+}
