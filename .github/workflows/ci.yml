@@ -18,5 +18,16 @@ jobs:
       - run: pip install -e ".[dev]"
       - run: python -m pytest -q
 
-  # radar-api (.NET) and apps/tv (Angular) jobs are added once those
-  # services exist (docs/05-backlog.md, Fase 2 and Fase 3).
+  radar-api:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: services/radar-api
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+      - run: dotnet test
+
+  # apps/tv (Angular) job is added once that app exists (docs/05-backlog.md, Fase 3).

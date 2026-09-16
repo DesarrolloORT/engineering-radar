@@ -7,8 +7,12 @@ services/news-intelligence/demo_tmp/
 services/news-intelligence/*.egg-info/
 
 # .NET
-services/radar-api/bin/
-services/radar-api/obj/
+services/radar-api/**/bin/
+services/radar-api/**/obj/
+services/radar-api/**/*.db
+services/radar-api/**/*.db-shm
+services/radar-api/**/*.db-wal
+services/radar-api/**/TestResults/
 
 # Angular / Node
 apps/tv/node_modules/
