@@ -42,6 +42,9 @@ refresh/reboot just resumes wherever the cycle currently is
 - No Qlik URL configured yet: Production slot shows "Production view
   unavailable" instead of a broken embed.
 
+Expired signals are removed locally even during an API outage. Route changes
+reuse a single feed polling loop and rotation clock.
+
 ## Configuration
 
 `src/environments/environment.ts` (dev) / `environment.prod.ts` (prod build,
@@ -54,11 +57,24 @@ via `fileReplacements` in `angular.json`):
 - `rotation` — per-slide durations, feed poll interval, and the "stale
   data" threshold.
 
+## Local integration
+
+Start the API in another terminal from the repository root:
+
+```bash
+dotnet run --project services/radar-api/src/RadarApi --launch-profile http
+```
+
+Then start the TV and open `http://localhost:4200/tv`. The development server
+forwards `/api/**` to `http://localhost:5145` using `proxy.conf.json`.
+Production requires a reverse proxy routing `/api` to radar-api and serving
+`index.html` for TV routes.
+
 ## Usage
 
 ```bash
 npm install
-npm start           # ng serve, http://localhost:4200
+npm start           # ng serve, http://localhost:4200 (proxies /api to localhost:5145)
 npm test            # ng test (Vitest)
 npm run build       # ng build (production)
 ```

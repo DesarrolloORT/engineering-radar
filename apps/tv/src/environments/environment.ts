@@ -1,7 +1,7 @@
 export const environment = {
   production: false,
   // Base URL of radar-api. Empty string means same-origin (behind a reverse proxy).
-  apiUrl: 'http://localhost:5145',
+  apiUrl: '',
   // Qlik Sense "Production Pulse TV" sheet URL (docs/03-production-pulse-qlik.md).
   // Left empty until BI/Qlik delivers the sheet — the TV shows a degraded
   // state instead of a broken embed (docs/04-tv-experience.md).

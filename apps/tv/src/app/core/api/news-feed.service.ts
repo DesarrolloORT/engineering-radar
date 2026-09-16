@@ -5,6 +5,7 @@ import { catchError, interval, of, startWith, switchMap, tap } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
 import { TechnologyFeedItem } from './technology-feed-item.model';
+import { RotationClockService } from '../rotation/rotation-clock.service';
 
 /**
  * Polls the Radar's public read endpoint only (GET /api/v1/feed/news) — no
@@ -17,13 +18,22 @@ export class NewsFeedService {
   private readonly http = inject(HttpClient);
   private readonly destroyRef = inject(DestroyRef);
 
-  readonly items = signal<TechnologyFeedItem[]>([]);
+  private readonly clock = inject(RotationClockService);
+  private started = false;
+  private readonly cachedItems = signal<TechnologyFeedItem[]>([]);
+  readonly items = computed(() => {
+    const now = this.clock.nowMs();
+    return this.cachedItems().filter(item => Date.parse(item.expires_at) > now);
+  });
   readonly lastUpdatedAt = signal<number | null>(null);
   readonly hasError = signal(false);
 
   readonly hasEverLoaded = computed(() => this.lastUpdatedAt() !== null);
 
   start(): void {
+    if (this.started) return;
+    this.started = true;
+    this.clock.start();
     interval(environment.rotation.pollIntervalMs)
       .pipe(
         startWith(0),
@@ -42,7 +52,7 @@ export class NewsFeedService {
   private fetch() {
     return this.http.get<TechnologyFeedItem[]>(`${environment.apiUrl}/api/v1/feed/news`).pipe(
       tap(items => {
-        this.items.set(items);
+        this.cachedItems.set(items);
         this.lastUpdatedAt.set(Date.now());
         this.hasError.set(false);
       }),
