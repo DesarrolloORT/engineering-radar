@@ -1,0 +1,30 @@
+[
+  {
+    "id": "doc-1",
+    "source_url": "https://example.org/source-1",
+    "title": "Angular ships a breaking change in signals API",
+    "content": "Angular's signals API introduces a breaking change affecting apps built with .NET backends and Azure hosting.",
+    "category": "development"
+  },
+  {
+    "id": "doc-2",
+    "source_url": "https://example.org/source-2",
+    "title": "Angular ships a breaking change in signals API",
+    "content": "A second outlet corroborates the Angular signals breaking change.",
+    "category": "development"
+  },
+  {
+    "id": "doc-3",
+    "source_url": "https://example.org/source-3",
+    "title": "Angular ships a breaking change in signals API",
+    "content": "A third outlet corroborates the Angular signals breaking change, mentioning VS Code tooling updates.",
+    "category": "development"
+  },
+  {
+    "id": "doc-4",
+    "source_url": "https://example.org/source-4",
+    "title": "Minor CSS spec proposal",
+    "content": "An early-stage CSS proposal with no team relevance and a single source.",
+    "category": "other"
+  }
+]

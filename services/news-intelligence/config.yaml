@@ -1,0 +1,55 @@
+# News Radar pipeline configuration.
+# Secrets (e.g. the Radar API key) are never stored here — see radar.api_key_env.
+
+team_context:
+  frontend:
+    - Angular
+    - TypeScript
+  backend:
+    - .NET
+  cloud:
+    - Azure
+    - Entra ID
+    - Azure Functions
+    - Service Bus
+    - Blob Storage
+    - App Configuration
+    - Key Vault
+  development:
+    - VS Code
+    - GitHub
+    - Claude Code
+
+categories:
+  - ai
+  - development
+  - cloud
+  - security
+  - dev-tooling
+  - other
+
+sources: []
+# Example static source for local runs/demos:
+# sources:
+#   - type: static
+#     params:
+#       path: tests/fixtures/documents.json
+
+scoring:
+  promote_threshold: 0.6
+  min_confidence: 0.5
+
+expiration_hours:
+  ai: 48
+  dev-tooling: 48
+  development: 48
+  security: 120
+  cloud: 168
+  other: 48
+
+radar:
+  endpoint: "https://radar-api.internal"
+  api_key_env: RADAR_API_KEY
+  timeout_seconds: 10
+  max_retries: 3
+  backoff_seconds: 0.5

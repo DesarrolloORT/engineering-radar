@@ -1,0 +1,20 @@
+# Python
+services/news-intelligence/.venv/
+services/news-intelligence/**/__pycache__/
+services/news-intelligence/**/*.pyc
+services/news-intelligence/.pytest_cache/
+services/news-intelligence/demo_tmp/
+services/news-intelligence/*.egg-info/
+
+# .NET
+services/radar-api/bin/
+services/radar-api/obj/
+
+# Angular / Node
+apps/tv/node_modules/
+apps/tv/dist/
+
+# Editors/OS
+.vs/
+.vscode/
+*.swp

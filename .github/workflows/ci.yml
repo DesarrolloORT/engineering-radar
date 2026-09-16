@@ -1,0 +1,22 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  news-intelligence:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: services/news-intelligence
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -e ".[dev]"
+      - run: python -m pytest -q
+
+  # radar-api (.NET) and apps/tv (Angular) jobs are added once those
+  # services exist (docs/05-backlog.md, Fase 2 and Fase 3).
