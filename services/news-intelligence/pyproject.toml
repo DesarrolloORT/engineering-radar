@@ -1,0 +1,24 @@
+[project]
+name = "scrapper-kb"
+version = "0.1.0"
+description = "News Radar pipeline: ingest -> signal -> enrich -> compile -> publish to Radar API"
+requires-python = ">=3.11"
+dependencies = [
+  "PyYAML>=6.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.0",
+  "jsonschema>=4.21",
+]
+
+[project.scripts]
+skb = "scrapper_kb.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["scrapper_kb*"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
