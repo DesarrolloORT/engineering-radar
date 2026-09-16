@@ -61,3 +61,8 @@ A network failure or invalid feed logs a warning and leaves other sources
 running. Configuration errors fail explicitly. Document IDs are stable
 across runs. Reports still use the template enricher and existing promotion
 threshold: fetching a real article does not guarantee publication.
+
+Both `run` and `publish-radar` publish only promoted signals whose report
+confidence meets `scoring.min_confidence` (default 0.5, inclusive).
+Reports below that threshold remain in the KB and report store; they are
+skipped for publication rather than counted as publish failures.

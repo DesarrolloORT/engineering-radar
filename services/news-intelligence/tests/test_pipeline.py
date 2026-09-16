@@ -1,6 +1,8 @@
 import json
 from pathlib import Path
 
+import pytest
+
 from scrapper_kb.config import Config, RadarConfig, ScoringConfig
 from scrapper_kb.models import SignalStatus
 from scrapper_kb.pipeline import republish_from_store, run
@@ -84,3 +86,26 @@ def test_republish_from_store_requires_no_new_ingest(tmp_path, monkeypatch):
 
     assert len(result.published_ids) == 1
     assert len(transport.store) == 1  # re-publishing does not create a duplicate entry
+
+@pytest.mark.parametrize("threshold, publishes", [(0.8, True), (0.81, False)])
+def test_confidence_threshold_applies_to_run_and_republish(tmp_path, monkeypatch, threshold, publishes):
+    transport = RecordingTransport()
+    monkeypatch.setattr("scrapper_kb.radar.publisher.urllib_transport", transport)
+    config = _config(tmp_path, transport.store)
+    config.scoring.min_confidence = threshold
+
+    result = run(config, kb_dir=tmp_path / "kb", store_dir=tmp_path / "store")
+    signal_id = next(iter(result.reports))
+    assert result.reports[signal_id].confidence == 0.8
+    assert result.published_ids == ([signal_id] if publishes else [])
+    assert result.failed_publish_ids == []
+    assert (tmp_path / "kb" / f"{signal_id}.md").exists()
+    assert (tmp_path / "store" / f"{signal_id}.json").exists()
+
+    transport.store.clear()
+    monkeypatch.setattr("scrapper_kb.pipeline.ingest", lambda _: pytest.fail("unexpected ingest"))
+    monkeypatch.setattr("scrapper_kb.pipeline.enrich", lambda *_: pytest.fail("unexpected enrichment"))
+    result = republish_from_store(config, store_dir=tmp_path / "store")
+    assert result.published_ids == ([signal_id] if publishes else [])
+    assert result.failed_publish_ids == []
+    assert set(transport.store) == ({signal_id} if publishes else set())

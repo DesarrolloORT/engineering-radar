@@ -50,7 +50,7 @@ def run(config: Config, kb_dir: str | Path, store_dir: str | Path) -> RunResult:
         save_report(store_dir, signal, report)
         _compile_kb_note(kb_dir, signal, report)
 
-        if publisher is None:
+        if publisher is None or report.confidence < config.scoring.min_confidence:
             continue
 
         item = signal_to_feed_item(signal, report, config.expiration_hours)
@@ -85,6 +85,8 @@ def republish_from_store(config: Config, store_dir: str | Path) -> RunResult:
     for signal, report in load_reports(store_dir):
         signals.append(signal)
         reports[signal.id] = report
+        if signal.status != SignalStatus.PROMOTED or report.confidence < config.scoring.min_confidence:
+            continue
         item = signal_to_feed_item(signal, report, config.expiration_hours)
         result = publisher.publish(item)
         if result.ok:
