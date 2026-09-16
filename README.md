@@ -1,4 +1,4 @@
-# DSI Radar — Plan de implementación
+# Plan de implementación
 
 ## Propósito
 
